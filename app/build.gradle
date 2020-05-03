@@ -63,7 +63,6 @@ dependencies {
 //    Android Room
     implementation 'androidx.room:room-runtime:2.2.5'
     implementation 'androidx.room:room-ktx:2.2.5'
-    kapt 'android.room:room-compiler:2.1.0'
 
 //    Android Navigation Architecture
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'

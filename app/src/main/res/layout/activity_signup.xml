@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="net.simplifiedcoding.mvvmsampleapp.ui.auth.AuthViewModel" />
+            type="apps.mithari.mvvmsampleapplication.ui.auth.AuthViewModel" />
 
     </data>
 

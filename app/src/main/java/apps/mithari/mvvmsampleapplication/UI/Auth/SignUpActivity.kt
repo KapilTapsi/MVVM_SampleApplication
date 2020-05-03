@@ -1,4 +1,4 @@
-package apps.mithari.mvvmsampleapplication.UI.Auth
+package apps.mithari.mvvmsampleapplication.ui.auth
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
