@@ -10,8 +10,9 @@ import retrofit2.http.POST
 
 interface MyApi {
     //    here we put our retrofit network calls
-    @FormUrlEncoded //this is used to proper format the url to be sent and
+//    this is used to proper format the url to be sent and
 //    with that we need to use @Field variable in function body
+    @FormUrlEncoded
     @POST("login")
     fun userLogin(
         @Field("email") email: String,

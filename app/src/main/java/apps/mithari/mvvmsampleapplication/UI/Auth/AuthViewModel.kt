@@ -2,6 +2,7 @@ package apps.mithari.mvvmsampleapplication.ui.auth
 
 import android.view.View
 import androidx.lifecycle.ViewModel
+import apps.mithari.mvvmsampleapplication.repositories.UserRepository
 
 class AuthViewModel : ViewModel() {
     var email: String? = null
@@ -16,7 +17,8 @@ class AuthViewModel : ViewModel() {
             authListener?.onFailure("Invalid email or password")
             return
         }
-        authListener?.onSuccess()
+        val loginResponse = UserRepository().userLogin(email!!, password!!)
+        authListener?.onSuccess(loginResponse)
     }
 
     fun onSignup(view: View) {
