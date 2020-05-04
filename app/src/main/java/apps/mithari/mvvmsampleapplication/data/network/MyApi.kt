@@ -1,7 +1,7 @@
 package apps.mithari.mvvmsampleapplication.data.network
 
-import okhttp3.ResponseBody
-import retrofit2.Call
+import apps.mithari.mvvmsampleapplication.data.network.responses.AuthResponse
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Field
@@ -14,10 +14,12 @@ interface MyApi {
 //    with that we need to use @Field variable in function body
     @FormUrlEncoded
     @POST("login")
-    fun userLogin(
+    suspend fun userLogin(
         @Field("email") email: String,
         @Field("password") password: String
-    ): Call<ResponseBody>
+    ): Response<AuthResponse> // earlier it was returning call now it is returning response
+//    suspend is feature of kotlin. suspend function can be paused and resumed at later time
+//    they can execute long running operations and wait for them without blocking
 
     companion object {
         //        this works like static class

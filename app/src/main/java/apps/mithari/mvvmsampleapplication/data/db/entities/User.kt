@@ -8,6 +8,7 @@ const val CURRENT_USER_ID = 0 //as we are using one user here we don't need to c
 @Entity //you can change the table name using @Entity(tableName="tableName")
 data class User(
     var id: Int? = null,
+    var name: String? = null,
     var email: String? = null,
     var password: String? = null,
     var email_verified_at: String? = null,

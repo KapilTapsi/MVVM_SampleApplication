@@ -1,10 +1,10 @@
 package apps.mithari.mvvmsampleapplication.ui.auth
 
-import androidx.lifecycle.LiveData
+import apps.mithari.mvvmsampleapplication.data.db.entities.User
 
 interface AuthListener {
     //    as we are performing network operations we have 3 functions
     fun onStarted()
-    fun onSuccess(loginResponse: LiveData<String>)
+    fun onSuccess(user: User)
     fun onFailure(message: String)
 }
