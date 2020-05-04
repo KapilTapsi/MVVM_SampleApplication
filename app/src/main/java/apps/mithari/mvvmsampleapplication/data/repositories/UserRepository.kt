@@ -1,8 +1,8 @@
-package apps.mithari.mvvmsampleapplication.repositories
+package apps.mithari.mvvmsampleapplication.data.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import apps.mithari.mvvmsampleapplication.network.MyApi
+import apps.mithari.mvvmsampleapplication.data.network.MyApi
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

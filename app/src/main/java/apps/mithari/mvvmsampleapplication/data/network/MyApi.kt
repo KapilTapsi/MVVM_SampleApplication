@@ -1,4 +1,4 @@
-package apps.mithari.mvvmsampleapplication.network
+package apps.mithari.mvvmsampleapplication.data.network
 
 import okhttp3.ResponseBody
 import retrofit2.Call

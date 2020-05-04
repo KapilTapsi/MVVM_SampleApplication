@@ -2,7 +2,7 @@ package apps.mithari.mvvmsampleapplication.ui.auth
 
 import android.view.View
 import androidx.lifecycle.ViewModel
-import apps.mithari.mvvmsampleapplication.repositories.UserRepository
+import apps.mithari.mvvmsampleapplication.data.repositories.UserRepository
 
 class AuthViewModel : ViewModel() {
     var email: String? = null
