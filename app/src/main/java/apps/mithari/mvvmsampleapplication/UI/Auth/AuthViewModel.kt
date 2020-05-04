@@ -6,12 +6,14 @@ import apps.mithari.mvvmsampleapplication.data.repositories.UserRepository
 import apps.mithari.mvvmsampleapplication.util.ApiException
 import apps.mithari.mvvmsampleapplication.util.Coroutines
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel(private val repository: UserRepository) : ViewModel() {
     var email: String? = null
     var password: String? = null
     var passwordconfirm: String? = null
     var name: String? = null
     var authListener: AuthListener? = null
+
+    fun getLoggedInUser() = repository.getUser()
 
     fun onLoginButtonClick(view: View) {
         authListener?.onStarted()
@@ -19,11 +21,12 @@ class AuthViewModel : ViewModel() {
             authListener?.onFailure("Invalid email or password")
             return
         }
-        Coroutines.main {
+        Coroutines.main {// this is an extension function we created in utils
             try {
-                val authResponse = UserRepository().userLogin(email!!, password!!)
+                val authResponse = repository.userLogin(email!!, password!!)
                 authResponse.user?.let {
                     authListener?.onSuccess(it)
+                    repository.saveUser(it)  //it will save the user into database
                     return@main
                 } // if everything is good to go then return
                 authListener?.onFailure(authResponse.message!!)

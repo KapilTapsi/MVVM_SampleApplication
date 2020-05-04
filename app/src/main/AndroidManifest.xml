@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
+        <activity android:name=".ui.home.HomeActivity"></activity>
         <activity android:name=".ui.auth.SignUpActivity" />
         <activity android:name=".ui.auth.LoginActivity">
             <intent-filter>
