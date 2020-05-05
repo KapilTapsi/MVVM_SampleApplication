@@ -1,6 +1,7 @@
 package apps.mithari.mvvmsampleapplication.data.network
 
 import apps.mithari.mvvmsampleapplication.data.network.responses.AuthResponse
+import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,14 +23,22 @@ interface MyApi {
 //    they can execute long running operations and wait for them without blocking
 
     companion object {
-        //        this works like static class
+//        this works like static class
 //        if we use only object this should be parent class
 //        if we use companion object then it should be inside some class
 //        companion itself means that it is with someone
-        operator fun invoke(): MyApi {
+
+        operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor): MyApi {
 //    we used operator keyword to redefine how the existing function should work
 //    and with invoke() we can simply call it using interfacename()()
+
+            val okHttpClient =
+                OkHttpClient.Builder().addInterceptor(networkConnectionInterceptor).build()
+//            first we need okhttpclient and then add interceptor to it.
+//            then we will add the okhttp client to retrofit instance
+
             return Retrofit.Builder()
+                .client(okHttpClient)
                 .baseUrl("https://api.simplifiedcoding.in/course-apis/mvvm/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

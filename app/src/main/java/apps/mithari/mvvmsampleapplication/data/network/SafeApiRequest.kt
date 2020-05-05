@@ -18,7 +18,7 @@ abstract class SafeApiRequest {
         if (response.isSuccessful) {
             return response.body()!!
         } else {
-            val error = response.errorBody()?.toString() // in example string() was used
+            val error = response.errorBody()?.string() // in example string() was used
 //            read somewhere that string() handles null but toString() doesn't
             val message = StringBuilder()
             try {
