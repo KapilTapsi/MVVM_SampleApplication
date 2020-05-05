@@ -10,6 +10,7 @@ import apps.mithari.mvvmsampleapplication.R
 import apps.mithari.mvvmsampleapplication.data.db.AppDatabase
 import apps.mithari.mvvmsampleapplication.data.db.entities.User
 import apps.mithari.mvvmsampleapplication.data.network.MyApi
+import apps.mithari.mvvmsampleapplication.data.network.NetworkConnectionInterceptor
 import apps.mithari.mvvmsampleapplication.data.repositories.UserRepository
 import apps.mithari.mvvmsampleapplication.databinding.ActivityLoginBinding
 import apps.mithari.mvvmsampleapplication.ui.home.HomeActivity
@@ -22,8 +23,8 @@ class LoginActivity : AppCompatActivity(), AuthListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val api = MyApi()
+        val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
+        val api = MyApi(networkConnectionInterceptor)
         val db = AppDatabase(this)
         val repository = UserRepository(api, db)
         val factory = AuthViewModelFactory(repository)
