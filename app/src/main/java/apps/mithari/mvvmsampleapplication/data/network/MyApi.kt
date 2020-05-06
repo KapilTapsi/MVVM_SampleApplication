@@ -22,6 +22,15 @@ interface MyApi {
 //    suspend is feature of kotlin. suspend function can be paused and resumed at later time
 //    they can execute long running operations and wait for them without blocking
 
+    @FormUrlEncoded
+    @POST("signup")
+    suspend fun userSignUp(
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): Response<AuthResponse>
+
+    // this is function for signup and in our case it will be called from repository{view model->repository->api/local db}
     companion object {
 //        this works like static class
 //        if we use only object this should be parent class

@@ -7,28 +7,29 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import apps.mithari.mvvmsampleapplication.R
-import apps.mithari.mvvmsampleapplication.data.db.AppDatabase
 import apps.mithari.mvvmsampleapplication.data.db.entities.User
-import apps.mithari.mvvmsampleapplication.data.network.MyApi
-import apps.mithari.mvvmsampleapplication.data.network.NetworkConnectionInterceptor
-import apps.mithari.mvvmsampleapplication.data.repositories.UserRepository
 import apps.mithari.mvvmsampleapplication.databinding.ActivityLoginBinding
 import apps.mithari.mvvmsampleapplication.ui.home.HomeActivity
 import apps.mithari.mvvmsampleapplication.util.hide
 import apps.mithari.mvvmsampleapplication.util.show
 import apps.mithari.mvvmsampleapplication.util.snackbar
 import kotlinx.android.synthetic.main.activity_login.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class LoginActivity : AppCompatActivity(), AuthListener {
+class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
+
+    override val kodein by kodein()
+//    you need to import import org.kodein.di.android.kodein in this activity otherwise there would be an error
+
+    private val factory: AuthViewModelFactory by instance<AuthViewModelFactory>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
-        val api = MyApi(networkConnectionInterceptor)
-        val db = AppDatabase(this)
-        val repository = UserRepository(api, db)
-        val factory = AuthViewModelFactory(repository)
-//        now in order to pass this repository to the viewmodel we need viewmodel factory.
+
+
+//        in order to pass this repository to the viewmodel we need viewmodel factory.
 //        ViewModel factory can send constructor to the required viewmodel
 
         val binding: ActivityLoginBinding =
@@ -39,6 +40,7 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         val viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
         binding.viewmodel = viewModel
         viewModel.authListener = this
+//        we passed reference to this class to the authlistener
 
         viewModel.getLoggedInUser().observe(this, Observer { user ->
             if (user != null) {

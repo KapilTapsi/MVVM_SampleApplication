@@ -16,8 +16,16 @@ class UserRepository(
 
     suspend fun userLogin(email: String, password: String): AuthResponse {
         return apiRequest { api.userLogin(email, password) }
+//        apiRequest is predefined function that takes response in Response<T> format
     }
 
+    suspend fun userSignUp(
+        name: String,
+        email: String,
+        password: String
+    ): AuthResponse {
+        return apiRequest { api.userSignUp(name, email, password) }
+    }
     //    we create the function saveuser to save the current user details in the database
 //    that too using coroutines or asynchronously
     suspend fun saveUser(user: User) = db.getUserDao().upsert(user)
