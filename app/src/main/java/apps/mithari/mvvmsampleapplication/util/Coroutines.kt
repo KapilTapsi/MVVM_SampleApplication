@@ -11,4 +11,6 @@ object Coroutines {
         CoroutineScope(Dispatchers.Main)
             .launch { work() }
 //      we changed the scope of the coroutine to main thread and then perform the work
+
+    fun io(work: suspend () -> Unit) = CoroutineScope(Dispatchers.IO).launch { work() }
 }

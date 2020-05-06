@@ -4,14 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import apps.mithari.mvvmsampleapplication.data.db.entities.Quote
 import apps.mithari.mvvmsampleapplication.data.db.entities.User
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class, Quote::class], version = 1)
 abstract class AppDatabase : RoomDatabase() { //whenever we make database we make class
 //    an abstract class
 
     //    we have to create abstract functions for all our daos/here we have single dao
     abstract fun getUserDao(): UserDao
+
+    abstract fun getQuoteDao(): QuoteDao
 
     companion object {
 //        we need companion object to create app database

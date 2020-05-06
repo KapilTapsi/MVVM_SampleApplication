@@ -4,9 +4,11 @@ import android.app.Application
 import apps.mithari.mvvmsampleapplication.data.db.AppDatabase
 import apps.mithari.mvvmsampleapplication.data.network.MyApi
 import apps.mithari.mvvmsampleapplication.data.network.NetworkConnectionInterceptor
+import apps.mithari.mvvmsampleapplication.data.repositories.QuotesRepository
 import apps.mithari.mvvmsampleapplication.data.repositories.UserRepository
 import apps.mithari.mvvmsampleapplication.ui.auth.AuthViewModelFactory
 import apps.mithari.mvvmsampleapplication.ui.home.profile.ProfileViewModelFactory
+import apps.mithari.mvvmsampleapplication.ui.home.quotes.QuotesViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -40,6 +42,12 @@ class MVVMApplication() : Application(), KodeinAware {
 //         here instance means repository. also we didnot want singleton of it.
 
         bind() from provider { ProfileViewModelFactory(instance()) }
+
+        bind() from singleton {
+            QuotesRepository(instance(), instance())
+        }
+
+        bind() from provider { QuotesViewModelFactory(instance()) }
     }
 
 }
