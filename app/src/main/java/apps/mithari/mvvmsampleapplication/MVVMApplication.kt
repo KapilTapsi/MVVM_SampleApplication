@@ -6,6 +6,7 @@ import apps.mithari.mvvmsampleapplication.data.network.MyApi
 import apps.mithari.mvvmsampleapplication.data.network.NetworkConnectionInterceptor
 import apps.mithari.mvvmsampleapplication.data.repositories.UserRepository
 import apps.mithari.mvvmsampleapplication.ui.auth.AuthViewModelFactory
+import apps.mithari.mvvmsampleapplication.ui.home.profile.ProfileViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -37,6 +38,8 @@ class MVVMApplication() : Application(), KodeinAware {
 
         bind() from provider { AuthViewModelFactory(instance()) }
 //         here instance means repository. also we didnot want singleton of it.
+
+        bind() from provider { ProfileViewModelFactory(instance()) }
     }
 
 }
