@@ -4,6 +4,7 @@ import android.app.Application
 import apps.mithari.mvvmsampleapplication.data.db.AppDatabase
 import apps.mithari.mvvmsampleapplication.data.network.MyApi
 import apps.mithari.mvvmsampleapplication.data.network.NetworkConnectionInterceptor
+import apps.mithari.mvvmsampleapplication.data.preferences.PreferenceProvider
 import apps.mithari.mvvmsampleapplication.data.repositories.QuotesRepository
 import apps.mithari.mvvmsampleapplication.data.repositories.UserRepository
 import apps.mithari.mvvmsampleapplication.ui.auth.AuthViewModelFactory
@@ -36,6 +37,8 @@ class MVVMApplication() : Application(), KodeinAware {
 //        here instance means myApi instance which we created above
 
         bind() from singleton { UserRepository(instance(), instance()) }
+
+        bind() from singleton { PreferenceProvider(instance()) }
 //        here instances are myApi and database instances
 
         bind() from provider { AuthViewModelFactory(instance()) }
@@ -44,7 +47,7 @@ class MVVMApplication() : Application(), KodeinAware {
         bind() from provider { ProfileViewModelFactory(instance()) }
 
         bind() from singleton {
-            QuotesRepository(instance(), instance())
+            QuotesRepository(instance(), instance(), instance())
         }
 
         bind() from provider { QuotesViewModelFactory(instance()) }
