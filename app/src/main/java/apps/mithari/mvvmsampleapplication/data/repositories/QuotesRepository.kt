@@ -1,5 +1,6 @@
 package apps.mithari.mvvmsampleapplication.data.repositories
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import apps.mithari.mvvmsampleapplication.data.db.AppDatabase
@@ -21,7 +22,7 @@ class QuotesRepository(
 ) : SafeApiRequest() {
     private val quotes = MutableLiveData<List<Quote>>()
 
-    private val simpleDateFormat = SimpleDateFormat.getDateTimeInstance()
+    private val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy_HH:mm", Locale.getDefault())
 
     init {
         quotes.observeForever {
@@ -40,7 +41,14 @@ class QuotesRepository(
 
     private suspend fun fetchQuotes() {
         val lastSavedAt = prefs.getLastSaveAt()
-        if (lastSavedAt == null || isFetchNeeded(simpleDateFormat.parse(lastSavedAt)!!)) {
+        if (lastSavedAt == null || isFetchNeeded(
+                simpleDateFormat.format(
+                    simpleDateFormat.parse(
+                        lastSavedAt
+                    )
+                )
+            )
+        ) {
             val response = apiRequest { api.getQuotes() }
             quotes.postValue(response.quotes)
 //            setValue() method must be called from the main thread.
@@ -48,7 +56,7 @@ class QuotesRepository(
         }
     }
 
-    private fun isFetchNeeded(lastSavedAt: Date): Boolean {
+    private fun isFetchNeeded(lastSavedAt: String?): Boolean {
         return simpleDateFormat.format(Date())
             .compareTo(
                 simpleDateFormat.parse(lastSavedAt.toString())!!.toString()
@@ -57,7 +65,8 @@ class QuotesRepository(
 
     private fun saveQuotes(quotes: List<Quote>) {
         Coroutines.io {
-            prefs.saveLastSavedAt(simpleDateFormat.format(Date()).toString())
+            prefs.saveLastSavedAt(simpleDateFormat.format(Date()))
+            Log.d("Date saved in sharedprefs kkkk", simpleDateFormat.format(Date()))
             db.getQuoteDao().saveAllQuotes(quotes)
         }
     }

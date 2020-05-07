@@ -42,7 +42,7 @@ class MVVMApplication() : Application(), KodeinAware {
 //        here instances are myApi and database instances
 
         bind() from provider { AuthViewModelFactory(instance()) }
-//         here instance means repository. also we didnot want singleton of it.
+//         here instance means repository. also we did not want singleton of it.
 
         bind() from provider { ProfileViewModelFactory(instance()) }
 
